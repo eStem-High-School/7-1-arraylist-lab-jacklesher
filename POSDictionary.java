@@ -3,7 +3,6 @@ import java.io.File;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.ArrayList;
-
 /**
  * This class provides information about the parts of speech of words. It
  * provides methods for generating random words of a particular type, and
@@ -12,8 +11,11 @@ import java.util.ArrayList;
  * @author Nathan Sprague and ???
  * @version 3/30/15
  */
-public class POSDictionary
-{
+public class POSDictionary{
+    public ArrayList<String> N = new ArrayList<String>();
+    public ArrayList<String> V = new ArrayList<String>();
+    public ArrayList<String> Adj = new ArrayList<String>();
+    public ArrayList<String> Adv = new ArrayList<String>();
     private Random generator;
 
     // DECLARE FOUR ARRAY LISTS TO CONTAIN NOUNS, VERBS, ADJECTIVES AND ADVERBS
@@ -60,6 +62,7 @@ public class POSDictionary
      */
     private void loadFile(String posFile) throws FileNotFoundException
     {
+        generator = new Random();
         Scanner sc;
         String curLine, word, pos;
         String[] splitLine;
@@ -75,6 +78,20 @@ public class POSDictionary
 
             // INSERT EACH WORD INTO THE APPROPRIATE ARRAYLIST.
             // THIS IS A GOOD PLACE FOR A SWITCH STATEMENT.
+            String secHalf = curLine.substring(curLine.indexOf(splitLine));
+            String firstHalf = curLine.substring(0,curLine.indexOf(splitLine));
+            if(secHalf.indexOf("N")!=-1){
+                N.add(firstHalf);
+            }
+            if(secHalf.indexOf("V")!=-1){
+                V.add(firstHalf);
+            }
+            if(secHalf.indexOf("A")!=-1){
+                Adj.add(firstHalf);
+            }
+            if(secHalf.indexOf("v")!=-1){
+                Adv.add(firstHalf);
+            }
 
         }
         sc.close();
@@ -87,10 +104,23 @@ public class POSDictionary
      * @param wordList - ArrayList of strings
      * @return a randomly selected string
      */
-    private String randomWord(ArrayList<String> wordList)
+     private String randomWord(ArrayList<String> wordList)
     {
         // UNFINISHED
-        return "";
+        String wordl= " ";
+        if(wordList==N){
+            wordl=randomNoun();
+        }
+        if(wordList==V){
+            wordl=randomVerb();
+        }
+        if(wordList==Adj){
+            wordl=randomAdjective();
+        }
+        if(wordList==Adv){
+            wordl=randomAdverb();
+        }
+        return wordl;
     }
     
     
@@ -102,7 +132,8 @@ public class POSDictionary
     public String randomNoun()
     {
         // UNFINISHED
-        return "";
+        String generator = new Random();
+        return generator(0,N.size()+1);
     }
 
     /**
@@ -111,7 +142,8 @@ public class POSDictionary
     public String randomVerb()
     {
         // UNFINISHED
-        return "";
+        String generator = new Random();
+        return generator(0,V.size()+1);
     }
 
     /**
@@ -120,7 +152,8 @@ public class POSDictionary
     public String randomAdjective()
     {
         // UNFINISHED
-        return "";
+        String generator = new Random();
+        return generator(0,Adj.size()+1);
     }
 
     /**
@@ -129,7 +162,8 @@ public class POSDictionary
     public String randomAdverb()
     {
         // UNFINISHED
-        return "";
+        String generator = new Random();
+        return generator(0,Adv.size()+1);
     }
 
     /**
@@ -141,6 +175,11 @@ public class POSDictionary
     public boolean isNoun(String word)
     {
         // UNFINISHED
+        for (i = 0; i < N.size(); i++){
+            if(word.equals(N.get(i))){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -153,6 +192,11 @@ public class POSDictionary
     public boolean isVerb(String word)
     {
         // UNFINISHED
+        for (i = 0; i < V.size(); i++){
+            if(word.equals(V.get(i))){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -165,6 +209,11 @@ public class POSDictionary
     public boolean isAdjective(String word)
     {
         // UNFINISHED
+        for (i = 0; i < Adj.size(); i++){
+            if(word.equals(Adj.get(i))){
+                return true;
+            }
+        }
         return false;
     }
 
@@ -175,8 +224,13 @@ public class POSDictionary
      * @return - true if it is a adverb
      */
     public boolean isAdverb(String word)
-    {        
+    {
         // UNFINISHED
+        for (i = 0; i < Adv.size(); i++){
+            if(word.equals(Adv.get(i))){
+                return true;
+            }
+        }
         return false;
     }
 }
